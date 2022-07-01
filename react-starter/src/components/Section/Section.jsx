@@ -3,7 +3,7 @@ import axios from 'axios';
 import ReactDOM from 'react-dom';
 import UsersData from '../../data.json';
 import Users from '../Users/Users';
-import Test from '../test/test';
+import FetchApi from '../fetchApi/fetchApi';
 
 import './Section.css';
 
@@ -33,10 +33,19 @@ class Section extends React.Component {
         const JsonData = UsersData;
         let tempTab = []
 
-       
+        for (let number of this.state.tab) {
 
-        // fetch('https://geo.api.gouv.fr/departements')
-        //     .then(({ results }) => this.setState({ departments: results }));
+            fetch(`https://geo.api.gouv.fr/departements?code=${number}`)
+                .then(response => {
+                    return response.json() 
+                })
+                .then((data) =>  {
+                    this.setState({departments: data})
+                }); 
+        }
+
+        
+
 
         /* The above code is mapping through the JsonData and pushing the departments into a temporary
         array. */
@@ -52,49 +61,14 @@ class Section extends React.Component {
         })
 
         /* Setting the state of the component. */
-        this.setState({tab: tempTab})
-
-
-       
+        this.setState({tab: tempTab})       
     }
-
-    // test() {
-    //     const [data, setData] = useState([]);
-
-    //     useEffect(() => {
-    //         const fetchData = async () => {
-    //             const result = await axios('https://geo.api.gouv.fr/departements');
-
-    //             setData(result.data);
-    //             // console.log(result.data)
-    //         };
-    //         fetchData();
-    //     }, [])
-    // }
   
     render() {
 
         const JsonData = UsersData;
 
-        // const [users, setUsers] = useState([])
-
-        // const fetchData = () => {
-
-        //     fetch('https://geo.api.gouv.fr/departements')
-        //         .then(response => {
-        //             return response.json() 
-        //         })
-        //         .then((data) =>  {
-        //             setUsers(data)
-        //             console.log(data)
-        //         }); 
-
-        // }
-
-        // useEffect(() => {
-        //     fetchData()
-        //   }, [])
-
+        console.log(this.state)
 
         return (
             <>
@@ -117,7 +91,7 @@ class Section extends React.Component {
                         </select>
                     </label>
                 </form>
-                <Test />
+                <FetchApi />
             </>
         );
         }

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 
-
 const Test = () => {
 
     const [users, setUsers] = useState([])
+    let tab2 = []
 
     const fetchData = () => {
 
@@ -13,7 +13,7 @@ const Test = () => {
             })
             .then((data) =>  {
                 setUsers(data)
-                console.log(data)
+                // console.log(data)
             }); 
     }
 
@@ -21,11 +21,21 @@ const Test = () => {
         fetchData()
       }, [])
 
+    {users.map(user => {
+        tab2.push(user.code)
+        // console.log(tab2)
+
+        
+
+    })}
+
     return ( 
         <div>
                 <ul>
                     {users.map(user => (
-                        <li key={user.id}>{user.code}</li>
+
+                        <li key={user.id}>{tab2}</li>
+                    
                     ))}
                 </ul>
         </div>
