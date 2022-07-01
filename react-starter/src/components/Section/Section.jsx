@@ -33,19 +33,17 @@ class Section extends React.Component {
         const JsonData = UsersData;
         let tempTab = []
 
-        for (let number of this.state.tab) {
-
-            fetch(`https://geo.api.gouv.fr/departements?code=${number}`)
-                .then(response => {
-                    return response.json() 
-                })
-                .then((data) =>  {
-                    this.setState({departments: data})
-                }); 
-        }
-
-        
-
+        // for (let number of this.state.tab) {
+        //     console.log("test1")
+        //     fetch(`https://geo.api.gouv.fr/departements?code=${number}`)
+        //         .then(response => {
+        //             return response.json() 
+        //         })
+        //         .then((data) =>  {
+        //             this.setState({departments: data})
+        //             console.log("test")
+        //         }); 
+        // }
 
         /* The above code is mapping through the JsonData and pushing the departments into a temporary
         array. */
@@ -61,7 +59,10 @@ class Section extends React.Component {
         })
 
         /* Setting the state of the component. */
-        this.setState({tab: tempTab})       
+        this.setState({tab: tempTab})   
+        
+        // console.log(this.state)
+        
     }
   
     render() {
@@ -69,6 +70,18 @@ class Section extends React.Component {
         const JsonData = UsersData;
 
         console.log(this.state)
+
+        // for (let number of this.state.tab) {
+        //     fetch(`https://geo.api.gouv.fr/departements?code=${number}&fields=*`)
+        //         .then(response => {
+        //             return response.json() 
+        //         })
+        //         .then((data) =>  {
+        //             this.setState({departments: data})
+        //             console.log("test")
+        //             return;
+        //         }); 
+        // }
 
         return (
             <>

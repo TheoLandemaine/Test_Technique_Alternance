@@ -7,7 +7,7 @@ const Test = () => {
 
     const fetchData = () => {
 
-        fetch('https://geo.api.gouv.fr/departements')
+        fetch('https://geo.api.gouv.fr/departements&fields=*')
             .then(response => {
                 return response.json() 
             })
