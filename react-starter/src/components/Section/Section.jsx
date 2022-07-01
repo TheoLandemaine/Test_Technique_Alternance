@@ -5,68 +5,56 @@ import Users from '../Users/Users';
 import './Section.css';
 
 
-
 class Section extends React.Component {
 
+    /**
+     * The constructor function is a special function that gets called when a new instance of a class
+     * is created
+     */
     constructor(props) {
+      /* The `super(props);` is calling the constructor of the parent class. */
       super(props);
-      this.state = {value: 'coconut'};
+
+      /* Initializing the state of the component. */
+      this.state = {
+        tab: []
+      }
     }
 
-    handleChange = event => {
-        this.setState({value: event.target.value});
-    }
-  
-    getUnique(arr, comp) {
-        const unique = arr
-
-            .map(e => e[comp])
-
-            .map((e, i, final) => final.indexOf(e) === i && i)
-
-            .filter(e => arr[e])
-
-            .map(e => arr[e]);
-
-        return unique;
-    }
-
+    /* componentDidMount */
     componentDidMount = () => {
-       
+        /* Init Variables */
         const JsonData = UsersData;
-        let tab = []
+        let tempTab = []
 
-        {JsonData.map(mapedData => {
+        fetch('https://geo.api.gouv.fr/departements?fields=*')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({departments: data})
+            });
 
+        console.log(this.state.departments)
+
+        /* The above code is mapping through the JsonData and pushing the departments into a temporary
+        array. */
+        JsonData.map(mapedData => {
+            /* Mapping through the JsonData and pushing the departments into a temporary
+                    array. */
             return (
-                
                 mapedData.departments.map(item => {
-                    
-                    // console.log(item)
-                    tab.push(item)
-                    tab = [...new Set(tab)];
-
-                    let test = tab.value
-                    console.log(test)
-                    // return(
-                    //     <option value={tab}>
-                    //         {tab}
-                    //     </option>
-                    // )
-
+                    tempTab.push(item)
+                    tempTab = [...new Set(tempTab)];
                 })
-                
             )
-            
-        })}
-        console.log(tab)
-        
+        })
+
+        /* Setting the state of the component. */
+        this.setState({tab: tempTab})
     }
   
     render() {
 
         const JsonData = UsersData;
-        // const uniqueNumber = this.getUnique(JsonData.departments, '')
 
         return (
             <>
@@ -78,32 +66,14 @@ class Section extends React.Component {
                         Nombre des départements :
                         <select >
                             <option value="Select number"> -- Sélectionné le département -- </option>
-                            
-                                    <option value={this.props.tab}>
-                                        {this.props.tab}
-                                    </option>
-                               
-                            
-                            {/* {JsonData.map(mapedData => {
-
-                                // console.log(mapedData.departments)
-                                // const uniqueNumber = this.getUnique(mapedData.departments, '')
-                                // console.log(uniqueNumber)
-
+                            {this.state.tab.map(e => {
+                                /* Mapping through the array and returning the value of the array. */
                                 return (
-                                    
-                                    mapedData.departments.map(item => {
-                                        
-                                        // console.log(item)
-                                        return(
-                                            <option value={item}>
-                                                {item}
-                                            </option>
-                                        )
-
-                                    })
+                                    <option value={e} key={e}>
+                                        {e}
+                                    </option>
                                 )
-                            })} */}
+                            })}
                         </select>
                     </label>
                 </form>

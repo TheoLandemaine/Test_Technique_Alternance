@@ -6,10 +6,8 @@ import Section from '../Section/Section';
 function Layout() {
   return (
     <Fragment>
-        <div className="layout">
-            <Header />
-            <Section />
-        </div>
+        <Header />
+        <Section />
     </Fragment>
   );
 }
