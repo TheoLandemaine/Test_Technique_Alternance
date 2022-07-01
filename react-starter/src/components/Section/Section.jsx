@@ -1,11 +1,15 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import axios from 'axios';
 import ReactDOM from 'react-dom';
 import UsersData from '../../data.json';
 import Users from '../Users/Users';
+import Test from '../test/test';
+
 import './Section.css';
 
 
 class Section extends React.Component {
+
 
     /**
      * The constructor function is a special function that gets called when a new instance of a class
@@ -17,23 +21,22 @@ class Section extends React.Component {
 
       /* Initializing the state of the component. */
       this.state = {
-        tab: []
+        tab: [],
+        departments: []
       }
     }
 
     /* componentDidMount */
     componentDidMount = () => {
+
         /* Init Variables */
         const JsonData = UsersData;
         let tempTab = []
 
-        fetch('https://geo.api.gouv.fr/departements?fields=*')
-            .then(response => response.json())
-            .then(data => {
-                this.setState({departments: data})
-            });
+       
 
-        console.log(this.state.departments)
+        // fetch('https://geo.api.gouv.fr/departements')
+        //     .then(({ results }) => this.setState({ departments: results }));
 
         /* The above code is mapping through the JsonData and pushing the departments into a temporary
         array. */
@@ -50,11 +53,48 @@ class Section extends React.Component {
 
         /* Setting the state of the component. */
         this.setState({tab: tempTab})
+
+
+       
     }
+
+    // test() {
+    //     const [data, setData] = useState([]);
+
+    //     useEffect(() => {
+    //         const fetchData = async () => {
+    //             const result = await axios('https://geo.api.gouv.fr/departements');
+
+    //             setData(result.data);
+    //             // console.log(result.data)
+    //         };
+    //         fetchData();
+    //     }, [])
+    // }
   
     render() {
 
         const JsonData = UsersData;
+
+        // const [users, setUsers] = useState([])
+
+        // const fetchData = () => {
+
+        //     fetch('https://geo.api.gouv.fr/departements')
+        //         .then(response => {
+        //             return response.json() 
+        //         })
+        //         .then((data) =>  {
+        //             setUsers(data)
+        //             console.log(data)
+        //         }); 
+
+        // }
+
+        // useEffect(() => {
+        //     fetchData()
+        //   }, [])
+
 
         return (
             <>
@@ -77,6 +117,7 @@ class Section extends React.Component {
                         </select>
                     </label>
                 </form>
+                <Test />
             </>
         );
         }
@@ -84,26 +125,3 @@ class Section extends React.Component {
 export default Section;
 
 
-// {JsonData.map(mapedData => {
-
-//     // console.log(mapedData.departments)
-//     // const uniqueNumber = this.getUnique(mapedData.departments, '')
-//     // console.log(uniqueNumber)
-
-    
-
-//             // console.log(mapedData.departments)
-  
-//                 // tab.push(mapedData.departments);
-//                 tab2.push(mapedData.departments)
-//                 // console.log(tab)
-            
-//             console.log("test")
-//             console.log(tab2)
-//             return(
-//                 <option value={tab2}>
-//                     {tab2}
-//                 </option>
-//             )
-        
-// })}
