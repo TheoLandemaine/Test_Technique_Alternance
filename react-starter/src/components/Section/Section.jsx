@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import UsersData from '../../data.json';
 import Users from '../Users/Users';
 import FetchApi from '../fetchApi/fetchApi';
-
+// import {departementsName} from '../fetchApi/fetchApi.jsx';
 import './Section.css';
 
 
@@ -68,8 +68,9 @@ class Section extends React.Component {
     render() {
 
         const JsonData = UsersData;
+        // console.log(departementsName);
 
-        console.log(this.state)
+        // console.log(this.state)
 
         // for (let number of this.state.tab) {
         //     fetch(`https://geo.api.gouv.fr/departements?code=${number}&fields=*`)
@@ -90,9 +91,9 @@ class Section extends React.Component {
                 </div>
                 <form onSubmit={this.handleSubmit} >
                     <label className="departments_list">
-                        Nombre des départements :
+                        Nombre des départements avec JSON :
                         <select >
-                            <option value="Select number"> -- Sélectionné le département -- </option>
+                            <option value="Select number"> -- Sélectionné le nombre du département -- </option>
                             {this.state.tab.map(e => {
                                 /* Mapping through the array and returning the value of the array. */
                                 return (
@@ -104,6 +105,11 @@ class Section extends React.Component {
                         </select>
                     </label>
                 </form>
+                <div>
+                    <ul>
+                        <li>{this.props.users}</li>
+                    </ul>
+                </div>
                 <FetchApi />
             </>
         );

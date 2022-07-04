@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react"
 
 const Test = () => {
 
-    const [users, setUsers] = useState([])
-    let tab2 = []
+    const [departementsName, setUsers] = useState([])
+    // let tab2 = []
 
     const fetchData = () => {
 
-        fetch('https://geo.api.gouv.fr/departements&fields=*')
+        fetch('https://geo.api.gouv.fr/departements')
             .then(response => {
                 return response.json() 
             })
@@ -21,23 +21,30 @@ const Test = () => {
         fetchData()
       }, [])
 
-    {users.map(user => {
-        tab2.push(user.code)
-        // console.log(tab2)
+    // {users.map(user => {
+    //     tab2.push(user.code)
+    //     // console.log(tab2)
 
         
 
-    })}
+    // })}
+
+    console.log(departementsName)
 
     return ( 
         <div>
-                <ul>
-                    {users.map(user => (
+            <br />
+            <label className="departments_list">
+                Nom des départements avec API :
+                <select>
+                    <option value="">-- Sélectionné le nom de département --</option>
+                    {departementsName.map(user => (
 
-                        <li key={user.id}>{tab2}</li>
+                        <option key={user.id} value={user.nom}>{user.nom}</option>
                     
                     ))}
-                </ul>
+                </select>
+            </label>
         </div>
     )
 }
